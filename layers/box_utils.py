@@ -347,6 +347,17 @@ def nms(boxes, scores, overlap=0.5, top_k=200):
             break
         idx = idx[:-1]  # remove kept element from view
         # load bboxes of next highest vals
+        idx = torch.autograd.Variable(idx, requires_grad=False)
+        idx = idx.data
+        x1 = torch.autograd.Variable(x1, requires_grad=False)
+        x1 = x1.data
+        y1 = torch.autograd.Variable(y1, requires_grad=False)
+        y1 = y1.data
+        x2 = torch.autograd.Variable(x2, requires_grad=False)
+        x2 = x2.data
+        y2 = torch.autograd.Variable(y2, requires_grad=False)
+        y2 = y2.data
+
         torch.index_select(x1, 0, idx, out=xx1)
         torch.index_select(y1, 0, idx, out=yy1)
         torch.index_select(x2, 0, idx, out=xx2)

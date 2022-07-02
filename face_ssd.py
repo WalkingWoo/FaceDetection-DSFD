@@ -334,7 +334,7 @@ class SSD(nn.Module):
             self.cfg['min_dim'] = image_size
             self.priors = self.init_priors(self.cfg)
             if refine:
-                output = self.detect(
+                output = self.detect.forward(
                   face_loc.view(face_loc.size(0), -1, 4),         # loc preds
                   self.softmax(face_conf.view(face_conf.size(0), -1, self.num_classes)), # conf preds
                   self.priors.type(type(x.data)),                  # default boxes
@@ -342,7 +342,7 @@ class SSD(nn.Module):
                   self.softmax(arm_conf.view(arm_conf.size(0), -1, self.num_classes)),
                 )
             else:
-                output = self.detect(
+                output = self.detect.forward(
                   face_loc.view(face_loc.size(0), -1, 4),         # loc preds
                   self.softmax(face_conf.view(face_conf.size(0), -1, self.num_classes)), # conf preds
                   self.priors.type(type(x.data))                  # default boxes
